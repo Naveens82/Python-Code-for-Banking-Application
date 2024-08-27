@@ -1,0 +1,68 @@
+from datetime import datetime
+class bankaccount:
+    def __init__(self,name,acc_no,passkey,balance,min_balance):
+        self.name=name
+        self.acc_no=acc_no
+        self.passkey=passkey
+        self.balance=balance
+        self.min_balance=min_balance
+
+#The below code display the starting account balance
+    def display_balance(self):
+        print("Hello",self.name,"Welcome....") 
+
+#the below code is for deposit the amount
+    def deposit(self,passkey,dep_amt):
+        if passkey==self.passkey:
+            if dep_amt>0:
+                self.balance+=dep_amt
+                print("Your Transaction is Completed.....")
+                print()
+                print("Here is Your Receipt....")
+                current_datetime=datetime.now()
+                print(current_datetime)
+                print("----------------")
+                print("The Balance is:",self.balance)
+                #print("The Amount added to your account and your current balance is:",self.balance)
+            else:
+                print("Enter the amt correctly")
+        else:
+            print("Enter the Correct Pin")
+            
+#The below code is used for withdraw the amount
+    def withdraw(self,passkey,withdraw_amt):
+        if passkey==self.passkey:
+            if withdraw_amt<=self.balance-self.min_balance and withdraw_amt>0:
+                self.balance-=withdraw_amt
+                print("Your Transaction is Completed.....")
+                print()
+                print("Here is Your Receipt....")
+                current_datetime=datetime.now()
+                print(current_datetime)
+                print("----------------")
+                print("The Balance is:",self.balance)
+            else:
+                print("!!Insufficient Balance")
+        else:
+            print("Enter the Correct Pin")
+
+p1=bankaccount("Ravi",15789644,12,5000,1000)
+p1.display_balance()
+
+#for withdraw or deposit
+print("For Deposit Enter: 1")
+print("For Withdraw Enter 2")
+
+#get the input from user for deposit or withdraw
+dep_or_withdraw=int(input("Enter the Number for deposit or Withdraw: "))
+
+#check the input from user and decide whether they want to deposit or withdraw the amount
+if dep_or_withdraw==1:
+    dep_amt=int(input("Enter the amount to be Deposit: "))
+    passkey=int(input("Enter the Passkey of your Account: "))
+    p1.deposit(passkey,dep_amt)
+ 
+elif dep_or_withdraw==2:
+    withdraw_amt=int(input("Enter the Withdraw amount: "))
+    passkey=int(input("Enter the Passkey of your Account: "))
+    p1.withdraw(passkey,withdraw_amt)
